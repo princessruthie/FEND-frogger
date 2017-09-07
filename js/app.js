@@ -70,28 +70,42 @@ Player.prototype.update = function(){
   // TODO:
 };
 
+/*By visual inspection, character can be located (0, -12) through (404, 403)
+and movement tolerance is calculated from there
+*/
 Player.prototype.handleInput = function (keycode){
+  // TODO: remove magic numbers
+  console.log(this.x + " " + this.y);
+
+  console.log(keycode);
+
   switch(keycode){
     case 'left':
-    console.log("switch left");
-    this.x -=101;
+    if (this.x> 100){
+      this.x -=101;
+    }
     break;
+
     case 'right':
-    console.log("switch right");
-    this.x += 101;
+    if (this.x <304){
+      this.x += 101;
+    }
     break;
+
     case 'up':
-    console.log("switch up");
-    this.y -= 83;
+    if (this.y > 70){
+      this.y -= 83;
+    }
     break;
+
     case 'down':
-    console.log("switch down");
-    this.y += 83;
-    break;
-    default:
-    console.log("default");
+    if (this.y<321){
+      this.y += 83;
+    }
     break;
   }
+  console.log(this.x + " " + this.y);
+
 };
 
 /*
@@ -113,6 +127,7 @@ var getSpeed = function(){
   return speed*direction;
 }
 
+// TODO: remove magic numbers
 var enemy01 = new Enemy();
 enemy01.setLoc(getStart(), 63);
 enemy01.setSprite('images/enemy-bug.png');
@@ -134,7 +149,9 @@ allEnemies.push(enemy02);
 allEnemies.push(enemy03);
 
 var player = new Player();
-player.setLoc(200, 295);
+// TODO: remove magic numbers
+// put player in middle of width wise and then center niceley
+player.setLoc(202, 320);
 player.setSprite('images/char-boy.png');
 
 // This listens for key presses and sends the keys to your
