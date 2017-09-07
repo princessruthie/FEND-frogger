@@ -1,39 +1,65 @@
+/*
+Entity, superclass for both player and enemy, provides
+render setLoc and setSprite functions
+*/
 var Entity = function(){
 };
+/*
+Entity location setter
+*/
 Entity.prototype.setLoc = function(x, y){
   this.x = x;
   this.y = y;
 };
+/*
+Entity sprite setter
+*/
 Entity.prototype.setSprite = function(sprite){
   this.sprite = sprite;
 };
 
-// Draw the entity on the screen, required method for game
+/*
+Renders entity to canvas
+*/
 Entity.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Enemies our player must avoid
+/*
+Enemy class of moving obstacles
+*/
 var Enemy = function() {
 };
 Enemy.prototype = Object.create(Entity.prototype);
 Enemy.prototype.constructor = Enemy;
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/*
+Update the enemy's position
+Parameter: dt, a time delta between ticks
+For enemies moving right, when pass threshold, go to left of canvas
+For enemies moving left, once past threshold, move to right of canvas
+*/
 Enemy.prototype.update = function(dt) {
+    var thresholdRight = 800;
+    var thresholdLeft = -100;
     this.x += dt*this.speed;
-    if (this.x >800){
-      this.x = -100;
+    if (this.x >thresholdRight){
+      this.x = thresholdLeft;
     }
-    if (this.x < -100){
-      this.x = 800;
+    if (this.x < thresholdLeft){
+      this.x = thresholdRight;
     }
 };
+/*
+Speed setter function
+*/
 Enemy.prototype.setSpeed = function(speed){
   this.speed = speed;
 }
 
+/*
+Player class for interactive image
+*/
 var Player = function(){
 }
 
@@ -48,10 +74,17 @@ Player.prototype.handleInput = function (){
   // TODO:
 };
 
+/*
+A function to get a random integer from 0 to cap
+*/
 var getStart = function(){
-  return Math.floor(Math.random()*500);
+  var cap = 500;
+  return Math.floor(Math.random()*cap);
 }
 
+/*
+A function to get a random speed
+*/
 var getSpeed = function(){
   var minSpeed = 200;
   var maxSpeed = 900;
