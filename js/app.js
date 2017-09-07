@@ -1,40 +1,46 @@
+var Entity = function(){
+};
+Entity.prototype.setLoc = function(x, y){
+  this.x = x;
+  this.y = y;
+};
+Entity.prototype.setSprite = function(sprite){
+  this.sprite = sprite;
+};
+
+// Draw the entity on the screen, required method for game
+Entity.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 // Enemies our player must avoid
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
 };
+Enemy.prototype = Object.create(Entity.prototype);
+Enemy.prototype.constructor = Enemy;
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    // TODO:
+    this.x += dt*this.speed;
+    if (this.x >800){
+      this.x = -100;
+    }
+    if (this.x < -100){
+      this.x = 800;
+    }
 };
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-var Player = function(){
-  // TODO:
+Enemy.prototype.setSpeed = function(speed){
+  this.speed = speed;
 }
 
-Player.prototype.update = function(){
-  // TODO:
-};
+var Player = function(){
+}
 
-Player.prototype.render = function(){
+Player.prototype = Object.create(Entity.prototype);
+Player.prototype.constructor = Player;
+
+Player.prototype.update = function(){
   // TODO:
 };
 
@@ -42,18 +48,41 @@ Player.prototype.handleInput = function (){
   // TODO:
 };
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-// TODO: make enemies
+var getStart = function(){
+  return Math.floor(Math.random()*500);
+}
 
+var getSpeed = function(){
+  var minSpeed = 200;
+  var maxSpeed = 900;
+  var speed =  Math.random()*(maxSpeed-minSpeed)+minSpeed;
+  var direction = Math.pow(-1, Math.floor(Math.random()*2) )
+  return speed*direction;
+}
+
+var enemy01 = new Enemy();
+enemy01.setLoc(getStart(), 63);
+enemy01.setSprite('images/enemy-bug.png');
+enemy01.setSpeed(getSpeed());
+
+var enemy02 = new Enemy();
+enemy02.setLoc(getStart(), 146);
+enemy02.setSprite('images/enemy-bug.png');
+enemy02.setSpeed(getSpeed());
+
+var enemy03 = new Enemy();
+enemy03.setLoc(getStart(), 232);
+enemy03.setSprite('images/enemy-bug.png');
+enemy03.setSpeed(getSpeed());
 
 var allEnemies = [];
+allEnemies.push(enemy01);
+allEnemies.push(enemy02);
+allEnemies.push(enemy03);
 
-// TODO: push enemies to array
-
-// TODO: 
 var player = new Player();
+player.setLoc(200, 295);
+player.setSprite('images/char-boy.png');
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
