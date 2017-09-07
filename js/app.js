@@ -70,8 +70,28 @@ Player.prototype.update = function(){
   // TODO:
 };
 
-Player.prototype.handleInput = function (){
-  // TODO:
+Player.prototype.handleInput = function (keycode){
+  switch(keycode){
+    case 'left':
+    console.log("switch left");
+    this.x -=101;
+    break;
+    case 'right':
+    console.log("switch right");
+    this.x += 101;
+    break;
+    case 'up':
+    console.log("switch up");
+    this.y -= 83;
+    break;
+    case 'down':
+    console.log("switch down");
+    this.y += 83;
+    break;
+    default:
+    console.log("default");
+    break;
+  }
 };
 
 /*
