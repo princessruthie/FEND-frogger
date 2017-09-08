@@ -50,11 +50,16 @@ Enemy.prototype.update = function(dt) {
       this.x = thresholdRight;
     }
 };
-/*
-Speed setter function
-*/
-Enemy.prototype.setSpeed = function(speed){
+
+Enemy.prototype.setUp = function(speed){
   this.speed = speed;
+  if (speed <0){
+    this.setSprite('images/enemy-bug-rtl.png');
+  }
+    else {
+      this.setSprite('images/enemy-bug.png');
+    }
+
 }
 
 /*
@@ -112,6 +117,7 @@ Player.prototype.handleInput = function (keycode){
 A function to get a random integer from 0 to cap
 */
 var getStart = function(){
+  // TODO: have them start off screen
   var cap = 500;
   return Math.floor(Math.random()*cap);
 }
@@ -130,18 +136,15 @@ var getSpeed = function(){
 // TODO: remove magic numbers
 var enemy01 = new Enemy();
 enemy01.setLoc(getStart(), 63);
-enemy01.setSprite('images/enemy-bug.png');
-enemy01.setSpeed(getSpeed());
+enemy01.setUp(getSpeed());
 
 var enemy02 = new Enemy();
 enemy02.setLoc(getStart(), 146);
-enemy02.setSprite('images/enemy-bug.png');
-enemy02.setSpeed(getSpeed());
+enemy02.setUp(getSpeed());
 
 var enemy03 = new Enemy();
 enemy03.setLoc(getStart(), 232);
-enemy03.setSprite('images/enemy-bug.png');
-enemy03.setSpeed(getSpeed());
+enemy03.setUp(getSpeed());
 
 var allEnemies = [];
 allEnemies.push(enemy01);
