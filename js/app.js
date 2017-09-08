@@ -169,3 +169,12 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+var checkCollisions = function(){
+  allEnemies.forEach(function(enemy) {
+    // TODO: remove magic numbers
+      if ((Math.abs(enemy.x - player.x)<5) & (Math.abs(enemy.y - player.y)<65)){
+        console.log("collision with " + enemy.x + ' ' + enemy.y);
+      }
+  });
+}
