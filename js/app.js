@@ -67,18 +67,15 @@ var Player = function() {}
 Player.prototype = Object.create(Entity.prototype);
 Player.prototype.constructor = Player;
 
-Player.prototype.update = function() {
-  // TODO:
-};
+Player.prototype.update = function() {};
 
-/*By visual inspection, character can be located (0, -12) through (404, 403)
-and movement tolerance is calculated from there
+/*
+    Rather than go long on this project, the calcs are as follows:
+    x values can go from 0 to (#cols -1)*col-width -- 0 through 404
+    y values can go from -12 to -12 + (#rows -1)*83 -- -12 through 403
+    since x moves by 101 and y moves by 83, the ranges are as below
 */
 Player.prototype.handleInput = function(keycode) {
-  // TODO: remove magic numbers
-  console.log(this.x + " " + this.y);
-
-console.log(keycode);
   switch (keycode) {
     case 'left':
       if (this.x > 100) {
@@ -105,8 +102,6 @@ console.log(keycode);
       }
       break;
   }
-  console.log(this.x + " " + this.y);
-
 };
 
 /*
@@ -129,7 +124,8 @@ var getSpeed = function() {
   return speed * direction;
 }
 
-// TODO: remove magic numbers
+/* Enemies run on rows. The bugs are offset from edge by 20 and increment at 83,
+yielding 63, 146, 229 */
 var enemy01 = new Enemy();
 enemy01.setLoc(getStart(), 63);
 enemy01.setUp(getSpeed());
@@ -139,7 +135,7 @@ enemy02.setLoc(getStart(), 146);
 enemy02.setUp(getSpeed());
 
 var enemy03 = new Enemy();
-enemy03.setLoc(getStart(), 232);
+enemy03.setLoc(getStart(), 229);
 enemy03.setUp(getSpeed());
 
 var allEnemies = [];
@@ -148,8 +144,10 @@ allEnemies.push(enemy02);
 allEnemies.push(enemy03);
 
 var player = new Player();
-// TODO: remove magic numbers
-// put player in middle of width wise and then center niceley
+/* put player in middle of width wise and then center niceley
+  x is at (canvas width + player width)/2
+  y is offset by 12px and then advanced 4 rows for -12 + 83*4 = 320
+*/
 player.setLoc(202, 320);
 player.setSprite('images/char-boy.png');
 
@@ -167,10 +165,15 @@ document.addEventListener('keyup', function(e) {
 });
 
 var checkCollisions = function() {
+  /*
+  Char pngs have 16px white space so use width-whitespace = 101-16 = 85
+  Bugs and char rows are usually separated by some multiple of 83 with
+  whitespace of 20 for a difference of 63
+  */
   allEnemies.forEach(function(enemy) {
-    // TODO: remove magic numbers
-    if ((Math.abs(enemy.x - player.x) < 5) & (Math.abs(enemy.y - player.y) < 65)) {
+    if ((Math.abs(enemy.x - player.x) < 85) & (Math.abs(enemy.y - player.y) < 63)) {
       console.log("collision with " + enemy.x + ' ' + enemy.y);
+      // TODO: dry
       player.setLoc(202, 320);
     }
   });
