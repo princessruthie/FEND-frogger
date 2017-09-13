@@ -66,8 +66,15 @@ var Player = function() {}
 
 Player.prototype = Object.create(Entity.prototype);
 Player.prototype.constructor = Player;
-
 Player.prototype.update = function() {};
+
+/* put player in middle of width wise and then center niceley
+  x is at (canvas width + player width)/2
+  y is offset by 12px and then advanced 4 rows for -12 + 83*4 = 320
+*/
+Player.prototype.resetLocation = function() {
+  this.setLoc(202, 320);
+};
 
 /*
     Rather than go long on this project, the calcs are as follows:
@@ -144,11 +151,7 @@ allEnemies.push(enemy02);
 allEnemies.push(enemy03);
 
 var player = new Player();
-/* put player in middle of width wise and then center niceley
-  x is at (canvas width + player width)/2
-  y is offset by 12px and then advanced 4 rows for -12 + 83*4 = 320
-*/
-player.setLoc(202, 320);
+player.resetLocation();
 player.setSprite('images/char-boy.png');
 
 // This listens for key presses and sends the keys to your
@@ -173,8 +176,7 @@ var checkCollisions = function() {
   allEnemies.forEach(function(enemy) {
     if ((Math.abs(enemy.x - player.x) < 85) & (Math.abs(enemy.y - player.y) < 63)) {
       console.log("collision with " + enemy.x + ' ' + enemy.y);
-      // TODO: dry
-      player.setLoc(202, 320);
+      player.resetLocation();
     }
   });
 }
