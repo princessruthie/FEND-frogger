@@ -99,7 +99,10 @@ Player.prototype.handleInput = function(keycode) {
     case 'up':
       if (this.y > 70) {
         this.y -= 83;
-        // TODO: check if this has landed in top row and if so, call a game won function
+        /*if in the top row, turn into a bug! */
+        if (this.y == -12){
+          this.setSprite('images/enemy-bug.png');
+        }
       }
       break;
 
