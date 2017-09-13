@@ -115,9 +115,8 @@ Player.prototype.handleInput = function(keycode) {
 A function to get a random integer from 0 to cap
 */
 var getStart = function() {
-  // TODO: have them start off screen
   var cap = 500;
-  return Math.floor(Math.random() * cap);
+  return -Math.floor(Math.random() * cap);
 }
 
 /*
