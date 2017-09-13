@@ -1,0 +1,30 @@
+diff --git a/js/app.js b/js/app.js
+index 6c18a1a..234e813 100755
+--- a/js/app.js
++++ b/js/app.js
+@@ -72,7 +72,6 @@ Player.prototype = Object.create(Entity.prototype);
+ Player.prototype.constructor = Player;
+ 
+ Player.prototype.update = function(){
+-  // TODO:
+ };
+ 
+ /*By visual inspection, character can be located (0, -12) through (404, 403)
+@@ -100,7 +99,8 @@ Player.prototype.handleInput = function (keycode){
+     case 'up':
+     if (this.y > 70){
+       this.y -= 83;
+-    }
++// TODO: check if this has landed in top row and if so, call a game won function
++}
+     break;
+ 
+     case 'down':
+@@ -175,6 +175,7 @@ var checkCollisions = function(){
+     // TODO: remove magic numbers
+       if ((Math.abs(enemy.x - player.x)<5) & (Math.abs(enemy.y - player.y)<65)){
+         console.log("collision with " + enemy.x + ' ' + enemy.y);
++        player.setLoc(202,320);
+       }
+   });
+ }
