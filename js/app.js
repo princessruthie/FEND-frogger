@@ -100,7 +100,8 @@ Player.prototype.handleInput = function (keycode){
     case 'up':
     if (this.y > 70){
       this.y -= 83;
-    }
+// TODO: check if this has landed in top row and if so, call a game won function
+}
     break;
 
     case 'down':
@@ -175,6 +176,7 @@ var checkCollisions = function(){
     // TODO: remove magic numbers
       if ((Math.abs(enemy.x - player.x)<5) & (Math.abs(enemy.y - player.y)<65)){
         console.log("collision with " + enemy.x + ' ' + enemy.y);
+        player.setLoc(202,320);
       }
   });
 }
