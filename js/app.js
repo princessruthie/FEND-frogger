@@ -169,6 +169,16 @@ document.addEventListener('keyup', function(e) {
   player.handleInput(allowedKeys[e.keyCode]);
 });
 
+/*
+  Resets all the enemies to offscreen but keeps the direction and speed
+*/
+var resetEnemies = function(){
+  for (var i = 0; i< allEnemies.length; i++){
+  console.log("test");
+  allEnemies[i].setLoc(getStart(), 63 + i*83);
+  }
+};
+
 var checkCollisions = function() {
   /*
   Char pngs have 16px white space so use width-whitespace = 101-16 = 85
@@ -179,6 +189,7 @@ var checkCollisions = function() {
     if ((Math.abs(enemy.x - player.x) < 85) & (Math.abs(enemy.y - player.y) < 63)) {
       console.log("collision with " + enemy.x + ' ' + enemy.y);
       player.resetLocation();
+      resetEnemies();
     }
   });
 }
