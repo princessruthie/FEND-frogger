@@ -34,18 +34,18 @@ Enemy.prototype.constructor = Enemy;
 /*
 Update the enemy's position
 Parameter: dt, a time delta between ticks
-For enemies moving right, when pass threshold, go to left of canvas
+For enemies moving right, when past threshold, go to left of canvas
 For enemies moving left, once past threshold, move to right of canvas
 */
 Enemy.prototype.update = function(dt) {
-  var thresholdRight = 800;
-  var thresholdLeft = -100;
+  var THRESHOLD_RIGHT = 800;
+  var THRESHOLD_LEFT = -100;
   this.x += dt * this.speed;
-  if (this.x > thresholdRight) {
-    this.x = thresholdLeft;
+  if (this.x > THRESHOLD_RIGHT) {
+    this.x = THRESHOLD_LEFT;
   }
-  if (this.x < thresholdLeft) {
-    this.x = thresholdRight;
+  if (this.x < THRESHOLD_LEFT) {
+    this.x = THRESHOLD_RIGHT;
   }
 };
 
@@ -126,9 +126,9 @@ var getStart = function() {
 A function to get a random speed
 */
 var getSpeed = function() {
-  var minSpeed = 200;
-  var maxSpeed = 900;
-  var speed = Math.random() * (maxSpeed - minSpeed) + minSpeed;
+  var MIN_SPEED = 200;
+  var MAX_SPEED = 900;
+  var speed = Math.random() * (MAX_SPEED - MIN_SPEED) + MIN_SPEED;
   var direction = Math.pow(-1, Math.floor(Math.random() * 2))
   return speed * direction;
 }
