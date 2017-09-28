@@ -56,7 +56,6 @@ Enemy.prototype.setUp = function(speed) {
   } else {
     this.setSprite('images/enemy-bug.png');
   }
-
 }
 
 /*
@@ -68,19 +67,20 @@ Player.prototype = Object.create(Entity.prototype);
 Player.prototype.constructor = Player;
 Player.prototype.update = function() {};
 
-/* put player in middle of width wise and then center niceley
-  x is at (canvas width + player width)/2
-  y is offset by 12px and then advanced 4 rows for -12 + 83*4 = 320
+/*
+Put player in middle of width wise and then center niceley
+x is at (canvas width + player width)/2
+y is offset by 12px and then advanced 4 rows for -12 + 83*4 = 320
 */
 Player.prototype.resetLocation = function() {
   this.setLoc(202, 320);
 };
 
 /*
-    Rather than go long on this project, the calcs are as follows:
-    x values can go from 0 to (#cols -1)*col-width -- 0 through 404
-    y values can go from -12 to -12 + (#rows -1)*83 -- -12 through 403
-    since x moves by 101 and y moves by 83, the ranges are as below
+Rather than go long on this project, the calcs are as follows:
+x values can go from 0 to (#cols -1)*col-width -- 0 through 404
+y values can go from -12 to -12 + (#rows -1)*83 -- -12 through 403
+since x moves by 101 and y moves by 83, the ranges are as below
 */
 Player.prototype.handleInput = function(keycode) {
   switch (keycode) {
@@ -133,8 +133,10 @@ var getSpeed = function() {
   return speed * direction;
 }
 
-/* Enemies run on rows. The bugs are offset from edge by 20 and increment at 83,
-yielding 63, 146, 229 */
+/*
+Enemies run on rows. The bugs are offset from edge by 20 and increment at 83,
+yielding 63, 146, 229
+*/
 var enemy01 = new Enemy();
 enemy01.setLoc(getStart(), 63);
 enemy01.setUp(getSpeed());
@@ -155,9 +157,10 @@ allEnemies.push(enemy03);
 var player = new Player();
 player.resetLocation();
 player.setSprite('images/char-boy.png');
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+/*
+This listens for key presses and sends the keys to your
+Player.handleInput() method. You don't need to modify this.
+*/
 document.addEventListener('keyup', function(e) {
   var allowedKeys = {
     37: 'left',
@@ -170,7 +173,7 @@ document.addEventListener('keyup', function(e) {
 });
 
 /*
-  Resets all the enemies to offscreen but keeps the direction and speed
+Resets all the enemies to offscreen but keeps the direction and speed
 */
 var resetEnemies = function(){
   for (var i = 0; i< allEnemies.length; i++){
